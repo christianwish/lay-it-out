@@ -1,50 +1,34 @@
-import React, { useEffect, Component, useState } from 'react'
+import React from 'react'
 import { withLayout, Place } from 'lay-it-out';
 
-const MyLayout = withLayout(({ child = {}, children }) => (
-    <div className="my-layout">
-        { child.test1 }
-        <aside>{ child.test2 }</aside>
-        {children}
+const LayoutTemplate = ({ child = {} }) => (
+    <div className="view-a">
+        <header>{ child.header }</header>
+        { child.intro }
+        <aside>{ child.sidebar }</aside>
     </div>
-));
+);
 
-const Something = ({ counter = 0 }) => {
-    const [innerCounter, setInnerCounter] = useState(0);
-    useEffect(() => {
-        console.log('Something mounted');
-    }, []);
-    return (
-        <React.Fragment>
-            <h2 onClick={() => setInnerCounter(innerCounter + 1)}>
-                inner counter: {innerCounter}
-            </h2>
-            <h3>
-                counter: {counter}
-            </h3>
-        </React.Fragment>
-    );
-};
+const Layout = withLayout(LayoutTemplate);
 
-const App = () => {
-    const [counter, setCounter] = useState(0);
+const App = () => (
+    <Layout>
+        <Place toBe="header">
+            <h1>Here is the header</h1>
+        </Place>
 
-    return (
-        <div>
-            <MyLayout>
-                <Place toBe="test1">
-                    <h1>Test1</h1>
-                    <Something counter={counter} />
-                </Place>
-                <Place toBe="test1">
-                    <h1 onClick={() => setCounter(counter + 1)}>Click Me</h1>
-                </Place>
-                <Place toBe="test2">Hello</Place>
-                <Place toBe="test3"></Place>
-                <div>NOLAYOUT</div>
-            </MyLayout>
-        </div>
-    );
-};
+        <Place toBe="intro">
+            <p>intro text</p>
+        </Place>
+
+        <Place toBe="sidebar">
+            <ul>
+                <li>link1</li>
+                <li>link2</li>
+                <li>link3</li>
+            </ul>
+        </Place>
+    </Layout>
+);
 
 export default App;
