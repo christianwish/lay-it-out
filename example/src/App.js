@@ -2,7 +2,7 @@ import React from 'react'
 import { withLayout, Place } from 'lay-it-out';
 
 const LayoutTemplate = ({ child = {} }) => (
-    <div className="view-a">
+    <div className="layout-xyz">
         <header>{ child.header }</header>
         { child.intro }
         <aside>{ child.sidebar }</aside>
