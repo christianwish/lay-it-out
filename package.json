@@ -1,7 +1,7 @@
 {
   "name": "lay-it-out",
   "version": "1.0.0",
-  "description": "Layout HOC and helper",
+  "description": "React layout HOC and helper",
   "author": "christianheyn",
   "license": "MIT",
   "repository": "christianheyn/lay-it-out",
