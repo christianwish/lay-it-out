@@ -1,6 +1,6 @@
 # lay-it-out
 
-> Layout HOC
+> React layout HOC and helper for complex layouts
 
 [![NPM](https://img.shields.io/npm/v/lay-it-out.svg)](https://www.npmjs.com/package/lay-it-out)
 
