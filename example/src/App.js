@@ -5,7 +5,13 @@ const LayoutTemplate = ({ child = {} }) => (
     <div className="layout-xyz">
         <header>{ child.header }</header>
         { child.intro }
-        <aside>{ child.sidebar }</aside>
+        <aside>
+            { child.sidebar }
+            <div className="special">
+                { child.specialPlace }
+            </div>
+        </aside>
+
     </div>
 );
 
@@ -29,6 +35,11 @@ const App = () => (
                 <li>link2</li>
                 <li>link3</li>
             </ul>
+        </Place>
+
+        <Place toBe="specialPlace">
+            <h4>specialPlace</h4>
+            <p>special text</p>
         </Place>
     </Layout>
 );
