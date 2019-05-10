@@ -18,10 +18,12 @@ const App = () => (
         </Place>
 
         <Place toBe="intro">
+            <h2>intro headline</h2>
             <p>intro text</p>
         </Place>
 
         <Place toBe="sidebar">
+            <h3>Sidebar</h3>
             <ul>
                 <li>link1</li>
                 <li>link2</li>
