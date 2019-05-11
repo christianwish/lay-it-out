@@ -1,47 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PLACE_IDENTIFIER } from './const';
+import { toArray, groupChildren } from './util';
 
-const toArray = x => Array.isArray(x)
-    ? x
-    : typeof x === 'undefined'
-        ? []
-        : [x];
+export const withLayout = Component => {
+    const WithLayout = ({ children, ...props }) => {
+        const childArray = toArray(children);
+        const { realChildren, placeObj } = groupChildren(childArray);
 
-const noPlaceComponent = ({ type = {} }) => !type[PLACE_IDENTIFIER];
-
-const isNotPlace = ({ props, type }) => (
-    !type[PLACE_IDENTIFIER]
-    || typeof props.toBe !== 'string'
-    || props.toBe === ''
-    || typeof props.children === 'undefined'
-);
-
-const groupPlaces = xs => xs.reduce((acc, { props, type }) => {
-    if (isNotPlace({ props, type })) return acc;
-
-    const { toBe } = props;
-
-    return {
-        ...acc,
-        [toBe]: (Array.isArray(acc[toBe]))
-            ? [...acc[toBe], props.children]
-            : [props.children],
+        return (
+            <Component
+                child={placeObj}
+                children={realChildren}
+                {...props}
+            />
+        );
     };
-}, {});
 
-export const withLayout = Component => ({ children, ...props }) => {
-    const childArray = toArray(children);
-    const realChildren = childArray.filter(noPlaceComponent);
-    const childObj = groupPlaces(childArray);
+    WithLayout.propTypes = {
+        children: PropTypes.oneOfType([
+            PropTypes.arrayOf(PropTypes.node),
+            PropTypes.node
+        ]),
+    };
 
-    return (
-        <Component
-            child={childObj}
-            children={realChildren}
-            {...props}
-        />
-    );
+    return WithLayout;
 };
 
 export const Place = ({ toBe = '', children = [] }) => ({

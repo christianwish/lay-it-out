@@ -11,12 +11,11 @@ const LayoutTemplate = ({ child = {} }) => (
                 { child.specialPlace }
             </div>
         </aside>
-
+        <footer>{ child.creditNotes }</footer>
     </div>
 );
 
 const Layout = withLayout(LayoutTemplate);
-
 const App = () => (
     <Layout>
         <Place toBe="header">
@@ -40,6 +39,10 @@ const App = () => (
         <Place toBe="specialPlace">
             <h4>specialPlace</h4>
             <p>special text</p>
+        </Place>
+
+        <Place toBe="creditNotes">
+            Thanks for watching.
         </Place>
     </Layout>
 );

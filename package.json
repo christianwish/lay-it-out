@@ -1,7 +1,7 @@
 {
   "name": "lay-it-out",
-  "version": "1.0.0",
-  "description": "React layout HOC and helper",
+  "version": "1.0.1",
+  "description": "React HOC and helper for complex layouts. When layouts get complex and you have to write a lot of jsx over and over again, this approach may help reuse layouts in a readable way.",
   "author": "christianheyn",
   "license": "MIT",
   "repository": "christianheyn/lay-it-out",
