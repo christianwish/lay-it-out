@@ -1,5 +1,54 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+    background-color: rgb(29, 24, 24);
+    font-family: 'Roboto Slab', serif;
+    font-size: 100%;
+    color: #eee;
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+.layout-xyz {
+  background-color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  padding: 50px;
+}
+
+.water {
+  background-color: rgb(52, 39, 165);
+  flex: 1;
+  padding: 20px;
+}
+
+.sand {
+  background-color: rgb(230, 183, 82);
+  flex: 1;
+  padding: 20px;
+}
+
+.fire {
+  background-color: rgb(230, 82, 82);
+  flex: 1;
+  padding: 20px;
+}
+
+.night {
+  background-color: rgb(25, 19, 53);
+  flex: 1;
+  padding: 20px;
 }

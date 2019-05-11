@@ -3,15 +3,15 @@ import { withLayout, Place } from 'lay-it-out';
 
 const LayoutTemplate = ({ child = {} }) => (
     <div className="layout-xyz">
-        <header>{ child.header }</header>
-        { child.intro }
-        <aside>
+        <header className="sand">{ child.header }</header>
+        <section className="water">{ child.intro }</section>
+        <aside className="sidebar night">
             { child.sidebar }
             <div className="special">
                 { child.specialPlace }
             </div>
         </aside>
-        <footer>{ child.creditNotes }</footer>
+        <footer class="fire">{ child.creditNotes }</footer>
     </div>
 );
 
