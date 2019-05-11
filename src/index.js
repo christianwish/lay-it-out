@@ -4,7 +4,7 @@ import { PLACE_IDENTIFIER } from './const';
 import { toArray, groupChildren } from './util';
 
 export const withLayout = Component => {
-    const WithLayout = ({ children, ...props }) => {
+    const WithLayoutHOC = ({ children, ...props }) => {
         const childArray = toArray(children);
         const { realChildren, placeObj } = groupChildren(childArray);
 
@@ -17,14 +17,16 @@ export const withLayout = Component => {
         );
     };
 
-    WithLayout.propTypes = {
+    WithLayoutHOC.propTypes = {
         children: PropTypes.oneOfType([
             PropTypes.arrayOf(PropTypes.node),
             PropTypes.node
         ]),
     };
 
-    return WithLayout;
+    WithLayoutHOC.displayName = 'WithLayoutHOC';
+
+    return WithLayoutHOC;
 };
 
 export const Place = ({ toBe = '', children = [] }) => ({
@@ -33,6 +35,7 @@ export const Place = ({ toBe = '', children = [] }) => ({
 });
 
 Place[PLACE_IDENTIFIER] = true;
+Place.displayName = 'Place';
 Place.propTypes = {
     toBe: PropTypes.string.isRequired,
     children: PropTypes.oneOfType([

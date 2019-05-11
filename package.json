@@ -1,6 +1,6 @@
 {
   "name": "lay-it-out",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "React HOC and helper for complex layouts. When layouts get complex and you have to write a lot of jsx over and over again, this approach may help reuse layouts in a readable way.",
   "author": "christianheyn",
   "license": "MIT",
@@ -23,8 +23,8 @@
     "children"
   ],
   "scripts": {
-    "test": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
+    "test": "cross-env CI=1 react-scripts test --env=jsdom  --verbose",
+    "test:watch": "react-scripts test --env=jsdom --verbose",
     "build": "rollup -c",
     "start": "rollup -c -w",
     "prepare": "npm run build",
@@ -57,6 +57,7 @@
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
+    "react-test-renderer": "^16.8.6",
     "rollup": "^0.64.1",
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-commonjs": "^9.1.3",

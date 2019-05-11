@@ -11,7 +11,7 @@ const LayoutTemplate = ({ child = {} }) => (
                 { child.specialPlace }
             </div>
         </aside>
-        <footer class="fire">{ child.creditNotes }</footer>
+        <footer className="fire">{ child.creditNotes }</footer>
     </div>
 );
 

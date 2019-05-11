@@ -6,6 +6,8 @@ When layouts get complex and you have to write a lot of jsx over and over again,
 
 [![NPM](https://img.shields.io/npm/v/lay-it-out.svg)](https://www.npmjs.com/package/lay-it-out)
 
+[![Build Status](https://travis-ci.org/christianheyn/lay-it-out.svg?branch=master)](https://travis-ci.org/christianheyn/lay-it-out)
+
 ## Install
 
 ```bash
@@ -14,9 +16,11 @@ npm install --save lay-it-out
 
 ## Usage
 
+Create a layout:
 ```jsx
+// Layout.js
 import React from 'react'
-import { withLayout, Place } from 'lay-it-out';
+import { withLayout } from 'lay-it-out';
 
 const LayoutTemplate = ({ child = {} }) => (
     <div className="layout-xyz">
@@ -32,7 +36,14 @@ const LayoutTemplate = ({ child = {} }) => (
     </div>
 );
 
-const Layout = withLayout(LayoutTemplate);
+export const Layout = withLayout(LayoutTemplate);
+```
+Use your layout like this:
+```jsx
+// App.js
+import React from 'react'
+import { Place } from 'lay-it-out';
+import { Layout } from './Layout';
 
 const App = () => (
     <Layout>
@@ -66,7 +77,45 @@ const App = () => (
 );
 
 ```
+___
 
+Of course it's possible to pass additional props to your layout.
+For example to toggle stuff:
+
+```jsx
+// Layout.js
+import React from 'react'
+import { withLayout } from 'lay-it-out';
+
+const LayoutTemplate = ({ child = {}, hasSidebar, className }) => (
+    <div className={`layout-xyz ${className}`}>
+        <header>{ child.header }</header>
+        { child.intro }
+        {
+            hasSidebar
+            && (
+                <aside>
+                    { child.sidebar }
+                    <div className="special">
+                        { child.specialPlace }
+                    </div>
+                </aside>
+            )
+        }
+        <footer>{ child.creditNotes }</footer>
+    </div>
+);
+
+export const Layout = withLayout(LayoutTemplate);
+```
+
+```jsx
+// App.js
+const App = () => (
+    <Layout className="additional-classname" hasSidebar>
+        <Place toBe="header">
+            ...
+```
 ## License
 
 MIT © [christianheyn](https://github.com/christianheyn)
