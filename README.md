@@ -1,12 +1,14 @@
 # lay-it-out
 
+[![NPM](https://img.shields.io/npm/v/lay-it-out.svg)](https://www.npmjs.com/package/lay-it-out) [![Build Status](https://travis-ci.org/christianheyn/lay-it-out.svg?branch=master)](https://travis-ci.org/christianheyn/lay-it-out)
+
 > React HOC and helper for complex layouts
 
 When layouts get complex and you have to write a lot of jsx over and over again, this approach may help reuse layouts in a readable way.
 
-[![NPM](https://img.shields.io/npm/v/lay-it-out.svg)](https://www.npmjs.com/package/lay-it-out)
+_Also tested with SSR (next.js). More test coming soon._
 
-[![Build Status](https://travis-ci.org/christianheyn/lay-it-out.svg?branch=master)](https://travis-ci.org/christianheyn/lay-it-out)
+_If you tried this package with other SSR methods or with `react-native` , please let me know if it's work ;)_
 
 ## Install
 
@@ -79,7 +81,9 @@ const App = () => (
 ```
 ___
 
-Of course it's possible to pass additional props to your layout.
+## additional props
+
+It's possible to pass additional props to your layout.
 For example to toggle stuff:
 
 ```jsx
@@ -93,14 +97,7 @@ const LayoutTemplate = ({ child = {}, hasSidebar, className }) => (
         { child.intro }
         {
             hasSidebar
-            && (
-                <aside>
-                    { child.sidebar }
-                    <div className="special">
-                        { child.specialPlace }
-                    </div>
-                </aside>
-            )
+            && (<aside>{ child.sidebar }</aside>)
         }
         <footer>{ child.creditNotes }</footer>
     </div>
@@ -115,6 +112,29 @@ const App = () => (
     <Layout className="additional-classname" hasSidebar>
         <Place toBe="header">
             ...
+```
+
+___
+
+## collision with prop name "child"
+You can set an option object to prevent prop name collision of "child".
+```jsx
+// Layout.js
+import React from 'react'
+import { withLayout } from 'lay-it-out';
+
+const LayoutTemplate = ({ customPropName = {} }) => (
+    <div className="layout-xyz">
+        <header>{ customPropName.header }</header>
+        <aside>{ customPropName.sidebar }</aside>
+        <footer>{ customPropName.creditNotes }</footer>
+    </div>
+);
+
+export const Layout = withLayout(
+    LayoutTemplate,
+    { customChildPropName: customPropName },
+);
 ```
 ## License
 

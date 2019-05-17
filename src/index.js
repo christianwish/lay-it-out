@@ -3,18 +3,32 @@ import PropTypes from 'prop-types';
 import { PLACE_IDENTIFIER } from './const';
 import { toArray, groupChildren } from './util';
 
-export const withLayout = Component => {
+export const withLayout = (Component, options) => {
     const WithLayoutHOC = ({ children, ...props }) => {
         const childArray = toArray(children);
         const { realChildren, placeObj } = groupChildren(childArray);
 
-        return (
-            <Component
-                child={placeObj}
-                children={realChildren}
-                {...props}
-            />
+        const validOptions = (options && typeof options === 'object')
+            ? options
+            : {};
+
+        const { customChildPropName } = validOptions;
+
+        const childPropName = (
+            (typeof customChildPropName === 'string'
+            && customChildPropName.trim() !== ''
+            && customChildPropName.trim() !== 'children')
+                ? customChildPropName.trim()
+                : 'child'
         );
+
+        const componentProps = {
+            [childPropName]: placeObj,
+            children: realChildren,
+            ...props,
+        };
+
+        return <Component {...componentProps} />;
     };
 
     WithLayoutHOC.propTypes = {
