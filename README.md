@@ -24,7 +24,7 @@ Create a layout:
 import React from 'react'
 import { withLayout } from 'lay-it-out';
 
-const LayoutTemplate = ({ child = {} }) => (
+const LayoutTemplate = ({ child }) => (
     <div className="layout-xyz">
         <header>{ child.header }</header>
         { child.intro }
@@ -91,7 +91,7 @@ For example to toggle stuff:
 import React from 'react'
 import { withLayout } from 'lay-it-out';
 
-const LayoutTemplate = ({ child = {}, hasSidebar, className }) => (
+const LayoutTemplate = ({ child, hasSidebar, className }) => (
     <div className={`layout-xyz ${className}`}>
         <header>{ child.header }</header>
         { child.intro }
@@ -123,17 +123,17 @@ You can set an option object to prevent prop name collision of "child".
 import React from 'react'
 import { withLayout } from 'lay-it-out';
 
-const LayoutTemplate = ({ customPropName = {} }) => (
+const LayoutTemplate = ({ myCustomPropName }) => (
     <div className="layout-xyz">
-        <header>{ customPropName.header }</header>
-        <aside>{ customPropName.sidebar }</aside>
-        <footer>{ customPropName.creditNotes }</footer>
+        <header>{ myCustomPropName.header }</header>
+        <aside>{ myCustomPropName.sidebar }</aside>
+        <footer>{ myCustomPropName.creditNotes }</footer>
     </div>
 );
 
 export const Layout = withLayout(
     LayoutTemplate,
-    { customChildPropName: customPropName },
+    { customChildPropName: 'myCustomPropName' },
 );
 ```
 ## License
