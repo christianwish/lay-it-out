@@ -1,10 +1,19 @@
 body {
-    background-color: rgb(29, 24, 24);
-    font-family: 'Roboto Slab', serif;
+    background-color: #ccc;
+    font-family: 'Roboto Slab', sans-serif;
     font-size: 100%;
-    color: #eee;
     margin: 0;
     padding: 0;
+}
+
+button {
+  color: #fff;
+  background-color: #09f;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 20px;
+  outline: 0;
+  min-width: 70px;
 }
 
 *,
@@ -13,42 +22,46 @@ body {
     box-sizing: border-box;
 }
 
-.layout-xyz {
+h1,
+h2,
+h3,
+h4 {
+  margin: 10px 0;
+}
+
+small {
+  color: #555;
+}
+
+.modal {
+  position: relative;
+  margin: 100px auto;
+  width: 500px;
   background-color: #fff;
-  height: 100vh;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  position: relative;
+  padding: 5px 15px;
+  border-radius: 6px 6px 0 0;
+  background-color: #eee;
+}
+
+.modal-content {
+  position: relative;
+  padding: 5px 15px;
+  min-height: 100px;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  justify-content: center;
+  align-items: center;
 }
 
-.sidebar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  padding: 50px;
-}
-
-.water {
-  background-color: rgb(52, 39, 165);
-  flex: 1;
-  padding: 20px;
-}
-
-.sand {
-  background-color: rgb(230, 183, 82);
-  flex: 1;
-  padding: 20px;
-}
-
-.fire {
-  background-color: rgb(230, 82, 82);
-  flex: 1;
-  padding: 20px;
-}
-
-.night {
-  background-color: rgb(25, 19, 53);
-  flex: 1;
-  padding: 20px;
+.modal-footer {
+  position: relative;
+  padding: 10px 15px;
+  border-top: solid 1px #ccc;
+  display: flex;
+  justify-content: flex-end;
 }

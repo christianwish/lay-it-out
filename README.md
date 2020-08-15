@@ -2,13 +2,7 @@
 
 [![NPM](https://img.shields.io/npm/v/lay-it-out.svg)](https://www.npmjs.com/package/lay-it-out) [![Build Status](https://travis-ci.org/christianheyn/lay-it-out.svg?branch=master)](https://travis-ci.org/christianheyn/lay-it-out)
 
-> React HOC and helper for complex layouts
-
-When layouts get complex and you have to write a lot of jsx over and over again, this approach may help reuse layouts in a readable way.
-
-_Also tested with SSR (next.js). More test coming soon._
-
-_If you tried this package with other SSR methods or with `react-native` , please let me know if it's work ;)_
+A helper for building complex react components with multiple child areas.
 
 ## Install
 
@@ -18,102 +12,79 @@ npm install --save lay-it-out
 
 ## Usage
 
-Create a layout:
-```jsx
-// Layout.js
-import React from 'react'
-import { withLayout } from 'lay-it-out';
+Imagin you want to build a component like this:
 
-const LayoutTemplate = ({ child }) => (
-    <div className="layout-xyz">
-        <header>{ child.header }</header>
-        { child.intro }
-        <aside>
-            { child.sidebar }
-            <div className="special">
-                { child.specialPlace }
-            </div>
-        </aside>
-        <footer>{ child.creditNotes }</footer>
-    </div>
-);
+![Modal example image](./assets/modal-example.png)
 
-export const Layout = withLayout(LayoutTemplate);
-```
-Use your layout like this:
+And of course all the child elements are variable.
+You could do it like this:
+
+
+
 ```jsx
-// App.js
 import React from 'react'
-import { Place } from 'lay-it-out';
-import { Layout } from './Layout';
+import { withLayout, Place } from 'lay-it-out';
+
+const Modal = ({ headerComponent, contentComponent, footerComponent }) => (
+    <section className="modal">
+        <header className="modal-header">
+            {headerComponent}
+        </header>
+        <div className="modal-content">
+            {contentComponent}
+        </div>
+        <footer className="modal-footer">
+            {footerComponent}
+        </footer>
+    </section>
+)
 
 const App = () => (
-    <Layout>
-        <Place toBe="header">
-            <h1>Here is the header</h1>
-        </Place>
-
-        <Place toBe="intro">
-            <h2>intro headline</h2>
-            <p>intro text</p>
-        </Place>
-
-        <Place toBe="sidebar">
-            <h3>Sidebar</h3>
-            <ul>
-                <li>link1</li>
-                <li>link2</li>
-                <li>link3</li>
-            </ul>
-        </Place>
-
-        <Place toBe="specialPlace">
-            <h4>specialPlace</h4>
-            <p>special text</p>
-        </Place>
-
-        <Place toBe="creditNotes">
-            Thanks for watching.
-        </Place>
-    </Layout>
+    <Modal
+        headerComponent={<h2><small>the</small> Header</h2>}
+        contentComponent={<h1><small>the</small> Content</h1>}
+        footerComponent={<button>Ok, cool!</button>}
+    />
 );
-
 ```
-___
 
-## additional props
-
-It's possible to pass additional props to your layout.
-For example to toggle stuff:
-
+Or you are using lay-it-out
 ```jsx
-// Layout.js
 import React from 'react'
-import { withLayout } from 'lay-it-out';
+import { withLayout, Place } from 'lay-it-out';
 
-const LayoutTemplate = ({ child, hasSidebar, className }) => (
-    <div className={`layout-xyz ${className}`}>
-        <header>{ child.header }</header>
-        { child.intro }
-        {
-            hasSidebar
-            && (<aside>{ child.sidebar }</aside>)
-        }
-        <footer>{ child.creditNotes }</footer>
-    </div>
+const _Modal = ({ children, child }) => (
+    <section className="modal">
+        <header className="modal-header">
+            {child.header}
+        </header>
+        <div className="modal-content">
+            {children}
+        </div>
+        <footer className="modal-footer">
+            {child.footer}
+        </footer>
+    </section>
+)
+
+const Modal = withLayout(_Modal);
+
+const App = () => (
+    <Modal open>
+        <Place toBe="header">
+            <h2><small>the</small> Header</h2>
+        </Place>
+
+        <h1><small>the</small> Content</h1>
+
+        <Place toBe="footer">
+            <button>Ok, cool!</button>
+        </Place>
+    </Modal>
 );
 
-export const Layout = withLayout(LayoutTemplate);
+export default App;
 ```
-
-```jsx
-// App.js
-const App = () => (
-    <Layout className="additional-classname" hasSidebar>
-        <Place toBe="header">
-            ...
-```
-
 ___
 
 ## collision with prop name "child"
@@ -121,21 +92,33 @@ You can set an option object to prevent prop name collision of "child".
 ```jsx
 // Layout.js
 import React from 'react'
-import { withLayout } from 'lay-it-out';
+import { withLayout, Place } from 'lay-it-out';
 
-const LayoutTemplate = ({ myCustomPropName }) => (
-    <div className="layout-xyz">
-        <header>{ myCustomPropName.header }</header>
-        <aside>{ myCustomPropName.sidebar }</aside>
-        <footer>{ myCustomPropName.creditNotes }</footer>
-    </div>
-);
+const _Modal = ({ children, myCustomPropName }) => (
+    <section className="modal">
+        <header className="modal-header">
+            {myCustomPropName.header}
+        </header>
+        <div className="modal-content">
+            {children}
+        </div>
+        <footer className="modal-footer">
+            {myCustomPropName.footer}
+        </footer>
+    </section>
+)
 
-export const Layout = withLayout(
-    LayoutTemplate,
-    { customChildPropName: 'myCustomPropName' },
-);
+const Modal = withLayout(_Modal, { customChildPropName: 'myCustomPropName' });
 ```
+
+___
+
+_Also tested with SSR (next.js). More test coming soon._
+
+_If you tried this package with other SSR methods or with `react-native` , please let me know if it's work ;)_
+
+
+
 ## License
 
 MIT © [christianheyn](https://github.com/christianheyn)

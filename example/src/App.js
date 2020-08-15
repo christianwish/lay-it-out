@@ -1,50 +1,34 @@
 import React from 'react'
 import { withLayout, Place } from 'lay-it-out';
 
-const LayoutTemplate = ({ child = {} }) => (
-    <div className="layout-xyz">
-        <header className="sand">{ child.header }</header>
-        <section className="water">{ child.intro }</section>
-        <aside className="sidebar night">
-            { child.sidebar }
-            <div className="special">
-                { child.specialPlace }
-            </div>
-        </aside>
-        <footer className="fire">{ child.creditNotes }</footer>
-    </div>
-);
+const _Modal = ({ children, child }) => (
+    <section className="modal">
+        <header className="modal-header">
+            {child.header}
+        </header>
+        <div className="modal-content">
+            {children}
+        </div>
+        <footer className="modal-footer">
+            {child.footer}
+        </footer>
+    </section>
+)
 
-const Layout = withLayout(LayoutTemplate);
+const Modal = withLayout(_Modal);
+
 const App = () => (
-    <Layout>
+    <Modal open>
         <Place toBe="header">
-            <h1>Here is the header</h1>
+            <h2><small>the</small> Header</h2>
         </Place>
 
-        <Place toBe="intro">
-            <h2>intro headline</h2>
-            <p>intro text</p>
-        </Place>
+        <h1><small>the</small> Content</h1>
 
-        <Place toBe="sidebar">
-            <h3>Sidebar</h3>
-            <ul>
-                <li>link1</li>
-                <li>link2</li>
-                <li>link3</li>
-            </ul>
+        <Place toBe="footer">
+            <button>Ok, cool!</button>
         </Place>
-
-        <Place toBe="specialPlace">
-            <h4>specialPlace</h4>
-            <p>special text</p>
-        </Place>
-
-        <Place toBe="creditNotes">
-            Thanks for watching.
-        </Place>
-    </Layout>
+    </Modal>
 );
 
 export default App;

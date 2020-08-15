@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { PLACE_IDENTIFIER } from './const';
+import { PLACE_IDENTIFIER, HOC_DISPLAY_NAME } from './const';
 import { toArray, groupChildren } from './util';
 
 export const withLayout = (Component, options) => {
-    const WithLayoutHOC = ({ children, ...props }) => {
+    const WithLayoutHOC = ({ children, ...props } = {}) => {
         const childArray = toArray(children);
         const { realChildren, placeObj } = groupChildren(childArray);
 
@@ -13,12 +13,14 @@ export const withLayout = (Component, options) => {
             : {};
 
         const { customChildPropName } = validOptions;
+        const customChildPropNameString = (typeof customChildPropName === 'string')
+            ? customChildPropName.trim()
+            : '';
 
         const childPropName = (
-            (typeof customChildPropName === 'string'
-            && customChildPropName.trim() !== ''
-            && customChildPropName.trim() !== 'children')
-                ? customChildPropName.trim()
+            customChildPropNameString
+            && customChildPropNameString !== 'children'
+                ? customChildPropNameString
                 : 'child'
         );
 
@@ -38,15 +40,13 @@ export const withLayout = (Component, options) => {
         ]),
     };
 
-    WithLayoutHOC.displayName = 'WithLayoutHOC';
+    WithLayoutHOC.displayName = HOC_DISPLAY_NAME;
 
     return WithLayoutHOC;
 };
 
-export const Place = ({ toBe = '', children = [] }) => ({
-    ...children,
-    isPlaceChild: true,
-});
+const empty = {};
+export const Place = ({ toBe = '', children = [] }) => empty;
 
 Place[PLACE_IDENTIFIER] = true;
 Place.displayName = 'Place';

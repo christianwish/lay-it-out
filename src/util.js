@@ -6,8 +6,6 @@ export const toArray = x => Array.isArray(x)
         ? []
         : [x];
 
-export const noPlaceComponent = ({ type = {} }) => !type[PLACE_IDENTIFIER];
-
 export const isNotPlace = ({ props, type = {} } = {}) => (
     !type[PLACE_IDENTIFIER]
     || typeof props.toBe !== 'string'
@@ -16,6 +14,8 @@ export const isNotPlace = ({ props, type = {} } = {}) => (
 );
 
 export const groupChildren = xs => xs.reduce(({ placeObj, realChildren }, child) => {
+    // child nodes that arn't `<Place>`
+    // will be grouped in `children` prop
     if (isNotPlace(child)) {
         return {
             realChildren: [ ...realChildren, child ],
@@ -23,11 +23,11 @@ export const groupChildren = xs => xs.reduce(({ placeObj, realChildren }, child)
         };
     }
 
-    const { props } = child;
-    const { toBe, children } = props;
-
+    const { props: { toBe, children } } = child;
     const childrenArray = toArray(children);
 
+    // the rest will collect in either a new <Place> `toBe` key
+    // or a key thats already in the set
     const newPlaceObj = {
         ...placeObj,
         [toBe]: (Array.isArray(placeObj[toBe]))
