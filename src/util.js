@@ -6,12 +6,19 @@ export const toArray = x => Array.isArray(x)
         ? []
         : [x];
 
-export const isNotPlace = ({ props, type = {} } = {}) => (
-    !type[PLACE_IDENTIFIER]
-    || typeof props.toBe !== 'string'
-    || props.toBe === ''
-    || typeof props.children === 'undefined'
-);
+export const isNotPlace = (child = {}) => {
+    if (child === null) {
+        return true;
+    };
+
+    const { props, type = {} } = child;
+    return (
+        !type[PLACE_IDENTIFIER]
+        || typeof props.toBe !== 'string'
+        || props.toBe === ''
+        || typeof props.children === 'undefined'
+    );
+};
 
 export const groupChildren = xs => xs.reduce(({ placeObj, realChildren }, child) => {
     // child nodes that arn't `<Place>`

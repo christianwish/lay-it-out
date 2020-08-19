@@ -259,3 +259,44 @@ describe('customChildPropName uses "child" when "children is given', () => {
 
     TestScenario(TestComponent, { customChildPropName: 'children' });
 });
+
+describe('null, string, boolean', () => {
+    it('does not throw when null is given as child', () => {
+        const Component = () => (
+            <div id="wrapper" />
+        );
+
+        const App = withLayout(Component);
+        expect(() => create(
+            <App>
+                {null}
+            </App>
+        ).root).not.toThrow();
+    });
+
+    it('does not throw when a string is given as child', () => {
+        const Component = () => (
+            <div id="wrapper" />
+        );
+
+        const App = withLayout(Component);
+        expect(() => create(
+            <App>
+                {'TEST'}
+            </App>
+        ).root).not.toThrow();
+    });
+
+    it('does not throw when a boolean value is given as child', () => {
+        const Component = () => (
+            <div id="wrapper" />
+        );
+
+        const App = withLayout(Component);
+        expect(() => create(
+            <App>
+                {false}
+            </App>
+        ).root).not.toThrow();
+    });
+});
